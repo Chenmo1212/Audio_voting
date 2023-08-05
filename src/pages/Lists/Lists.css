@@ -1,0 +1,124 @@
+.lists-bg {
+    background: linear-gradient(229deg, #1474B0 0%, #58BFF9 100%);
+    min-height: 100vh;
+    width: 100%;
+    z-index: -1;
+}
+
+.content {
+    border-radius: 1.25rem;
+}
+
+.left {
+    border-radius: 1.25rem 0 0 1.25rem;
+    background: #F4F4F4;
+    width: 20%;
+}
+
+.left .userList {
+    height: 75%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    border-top: 3px solid #EBEEF5;
+    border-bottom: 3px solid #EBEEF5;
+}
+
+/*.left .userList::-webkit-scrollbar {*/
+/*    -ms-overflow-style: none;*/
+/*    display: none;*/
+/*}*/
+
+.left .is-active {
+    background: #4497FF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    color: #fff;
+}
+
+.left .user {
+    line-height: 3rem;
+}
+
+.left .user:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+}
+
+.right .info {
+    padding: 15% 20px 0 5%;
+}
+
+.right .info .underline {
+    background-color: #4497ff;
+}
+
+.right .info .desc {
+    width: 100%;
+    line-height: 2;
+    font-size: 1.125rem;
+}
+
+.right input {
+    padding: 0.5rem 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.40);
+}
+
+.right input:active {
+    background-color: #f1f1f1;
+}
+
+.right .avatar {
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media only screen and (max-width: 830px) {
+    .left {
+        width: 30%;
+    }
+    .right {
+        display: block;
+    }
+
+    .avatar {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 40%;
+    }
+
+    .avatar img {
+        height: 100%;
+        width: auto;
+    }
+
+    .info {
+        position: absolute;
+        top: 35%;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .left {
+        width: 40%;
+    }
+
+    .right .info .title {
+        margin-top: 2rem;
+        font-size: 26px;
+    }
+
+    .right .info .underline {
+        margin-bottom: 2rem;
+    }
+
+    .right .info .desc {
+        font-size: 14px;
+    }
+
+    .right .enter input {
+        font-size: 14px;
+        padding: 0.4rem 1.6rem;
+    }
+}
