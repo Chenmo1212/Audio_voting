@@ -1,0 +1,59 @@
+.home {
+    background: url('../../resources/imgs/bg.png') no-repeat center center;
+    background-size: cover;
+    min-height: 100vh;
+    color: #58bff9;
+}
+
+#logo img {
+    width: 200px;
+}
+
+.enter span {
+    font-weight: 700;
+    padding: 1rem 1.5rem;
+    border-radius: 30px;
+}
+.enter span:hover,
+.enter span:active {
+    background-color: #ececec;
+}
+
+@media only screen and (max-width: 830px) {
+    #Slogan {
+        width: 70%;
+        left: 15%;
+        top: 22%;
+    }
+
+    #qrcode {
+        width: 17%;
+    }
+
+    .enter {
+        bottom: 35%;
+        right: 40%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    #logo {
+        width: 40%;
+        left: 30%;
+    }
+    #Slogan {
+        width: 80%;
+        left: 10%;
+        top: 25%;
+    }
+
+    #qrcode {
+        width: 26%;
+    }
+
+    .enter {
+        width: 40%;
+        bottom: 40%;
+        right: 30%;
+    }
+}
