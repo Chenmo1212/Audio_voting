@@ -80,17 +80,20 @@ const Player = ({user, toNext, toPrev}) => {
   const maxPosition = 1800; // Maximum position value for the slider
 
   const play = () => {
+    console.log("play event")
     // setPause(pause => !pause);
     setPlaying(playing => !playing);
   };
 
   const previous = () => {
     setPosition(0);
+    setPlaying(false);
     toPrev()
   };
 
   const next = () => {
     setPosition(0);
+    setPlaying(false);
     toNext()
   };
 
@@ -102,7 +105,6 @@ const Player = ({user, toNext, toPrev}) => {
           let newPosition = prevPosition + 1;
           if (newPosition > maxPosition) {
             newPosition = 0;
-            next();
           }
           return newPosition;
         });

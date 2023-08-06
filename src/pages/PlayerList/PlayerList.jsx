@@ -20,15 +20,18 @@ const PlayerList = () => {
   const swiperRef = useRef(null);
   // Get route parameters
   const routerParams = useParams();
+
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   let currId = userInfo.findIndex((item) => item.id === routerParams.id);
 
   const toPrev = () => {
     swiperRef.current?.swiper.slidePrev(300);
+    setActiveSlideIndex(activeSlideIndex - 1 >= 0 ? activeSlideIndex - 1 : userInfo.length - 1);
   }
 
   const toNext = () => {
     swiperRef.current?.swiper.slideNext(300);
+    setActiveSlideIndex(activeSlideIndex + 1 < userInfo.length ? activeSlideIndex + 1 : 0);
   }
 
   const handleSlideClick = (index) => {
@@ -38,7 +41,6 @@ const PlayerList = () => {
     } else if (res === -1 || res === userInfo.length - 1) {
       toPrev()
     }
-    setActiveSlideIndex(index);
   };
 
   useEffect(() => {
