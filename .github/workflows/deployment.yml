@@ -8,12 +8,23 @@ jobs:
       - name: Step 1 - Check_out-code 🔎
         uses: actions/checkout@v2
 
+      - name: Step 2 - Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.16.0' # Change this to your desired Node.js version
+
+      - name: Step 3 - Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
       - name: Step 2 - Deploy to Server 🖥️
         uses: easingthemes/ssh-deploy@v2.2.11
         env:
           SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           ARGS: "-rltgoDzvO"
-          SOURCE: "/"
+          SOURCE: "/build/"
           REMOTE_HOST: ${{ vars.REMOTE_HOST }}
           REMOTE_USER: 'root'
           TARGET: ${{ vars.TARGET }}
