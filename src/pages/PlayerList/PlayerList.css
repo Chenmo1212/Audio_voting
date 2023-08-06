@@ -18,3 +18,7 @@
     transform: scale(1.2);
     z-index: 10;
 }
+
+.back {
+    z-index: 99;
+}

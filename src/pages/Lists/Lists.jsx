@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "./Lists.css";
-import slogan from "../../resources/imgs/slogan-yellow.png";
 import userInfo from "../../resources/data/userInfo"
+import slogan from "../../resources/imgs/slogan-yellow.png";
+import back from "../../resources/imgs/back-arrow-black.svg";
 
 const Background = () => {
   return (
@@ -31,7 +32,6 @@ const UserList = (props) => {
 }
 
 const Left = (props) => {
-  console.log("1", props)
   return (
     <div className="left text-center">
       <div className="slogan w-3/5 inline-block mt-8 mb-4">
@@ -53,6 +53,10 @@ const Right = (props) => {
   }
   return (
     <div className="right flex w-full relative">
+      <div className="back w-8 h-8 absolute top-4 left-4 cursor-pointer">
+        <img src={back} alt="back" onClick={() => navigate('/home')}/>
+      </div>
+
       <div className="info w-2/5">
         <div className="title text-[3rem]">
           {currentUser.name}

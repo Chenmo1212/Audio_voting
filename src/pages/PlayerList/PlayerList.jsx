@@ -6,7 +6,8 @@ import userInfo from "../../resources/data/userInfo"
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {A11y} from 'swiper/modules';
 import 'swiper/css';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import back from "../../resources/imgs/back-arrow-white.svg";
 
 const Background = () => {
   return (
@@ -15,6 +16,7 @@ const Background = () => {
 }
 
 const PlayerList = () => {
+  const navigate = useNavigate();
   const swiperRef = useRef(null);
   // Get route parameters
   const routerParams = useParams();
@@ -47,6 +49,10 @@ const PlayerList = () => {
     <div className="player-list">
       <Background/>
 
+      <div className="back w-8 h-8 absolute top-4 left-4 cursor-pointer">
+        <img src={back} alt="back" onClick={() => navigate('/Lists')}/>
+      </div>
+
       <Swiper
         ref={swiperRef}
         modules={[A11y]}
@@ -66,8 +72,10 @@ const PlayerList = () => {
       >
         {
           userInfo.map((item, index) => (
-              <SwiperSlide key={index} onClick={() => handleSlideClick(index)}>
-                <Player user={userInfo[index]} toNext={toNext} toPrev={toPrev}/>
+              <SwiperSlide key={index}>
+                <div onClick={() => handleSlideClick(index)}>
+                  <Player user={userInfo[index]} toNext={toNext} toPrev={toPrev}/>
+                </div>
               </SwiperSlide>
             )
           )}
