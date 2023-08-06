@@ -31,12 +31,19 @@ const SongInfo = ({song, artist}) => {
   );
 };
 const ProgressBar = ({position, maxPosition, sliderChange}) => {
+  const progress = (position / maxPosition) * 100;
   return (
     <>
       <div className="progress">
         <div className="time-display flex justify-between">
           <span className="start text-xs">{formatTime(position)}</span>
           <span className="start text-xs">{formatTime(maxPosition)}</span>
+        </div>
+        <div className="played-progress-container relative">
+          <div
+            className="played-progress absolute"
+            style={{ width: `${progress}%` }}
+          ></div>
         </div>
         <input id="slider" type="range" value={position} min="0" max={maxPosition} step="1" onChange={sliderChange}/>
       </div>
