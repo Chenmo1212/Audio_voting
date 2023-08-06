@@ -2,7 +2,7 @@ import { Navigate, useRoutes } from "react-router-dom";
 import PublicLayout from "../layout/index";
 import Homepage from "../pages/Homepage/Homepage";
 import Lists from "../pages/Lists/Lists";
-import Player from "../pages/Player/Player";
+import PlayerList from "../pages/PlayerList/PlayerList";
 
 const routes = [
   {
@@ -21,8 +21,8 @@ const routes = [
         element: <Lists />,
       },
       {
-        path: "Player/:id",
-        element: <Player />,
+        path: "PlayerList/:id",
+        element: <PlayerList />,
       }
     ],
   }

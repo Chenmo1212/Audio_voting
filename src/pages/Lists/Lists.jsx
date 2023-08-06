@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import "./Lists.css";
 import slogan from "../../resources/imgs/slogan-yellow.png";
 
@@ -173,7 +174,12 @@ const Left = (props) => {
 }
 
 const Right = (props) => {
+  const navigate = useNavigate();
   let currentUser = userInfo[props.isActiveIndex]
+
+  const toPlayer = () => {
+    navigate("/PlayerList/" + currentUser.id)
+  }
   return (
     <div className="right flex w-full relative">
       <div className="info w-2/5">
@@ -187,7 +193,7 @@ const Right = (props) => {
         </div>
 
         <div className="enter text-xl">
-          <input type="button" value="查看" className="cursor-pointer"/>
+          <input type="button" value="查看" className="cursor-pointer" onClick={toPlayer}/>
         </div>
       </div>
       <div className="avatar w-3/5 h-full flex justify-center items-center"
@@ -198,7 +204,6 @@ const Right = (props) => {
 }
 
 const Content = () => {
-
   const [isActiveIndex, setActiveIndex] = useState(0);
 
   const changeUser = (index) => {
