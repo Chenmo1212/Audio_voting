@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './Player.css'
 
 const AlbumArt = ({imageUrl}) => {
@@ -18,7 +18,7 @@ const SongInfo = ({song, artist}) => {
       <hgroup className="info__left m-auto">
         <h1 className="info__song text-xl">
           <div className="song active text-center">
-              {song}
+            {song}
           </div>
         </h1>
         {/*<h2 className="info__artist">*/}
@@ -32,9 +32,15 @@ const SongInfo = ({song, artist}) => {
 };
 const ProgressBar = ({position, maxPosition, sliderChange}) => {
   return (
-    <div className="progress">
-      <input id="slider" type="range" value={position} min="0" max={maxPosition} step="1" onChange={sliderChange}/>
-    </div>
+    <>
+      <div className="progress">
+        <div className="time-display flex justify-between">
+          <span className="start text-xs">{formatTime(position)}</span>
+          <span className="start text-xs">{formatTime(maxPosition)}</span>
+        </div>
+        <input id="slider" type="range" value={position} min="0" max={maxPosition} step="1" onChange={sliderChange}/>
+      </div>
+    </>
   );
 };
 
@@ -74,14 +80,24 @@ const Controls = ({previous, play, next, playing}) => {
   );
 };
 
+const formatTime = (timeInMillis) => {
+  const totalSeconds = Math.floor(timeInMillis / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  const formattedMinutes = String(minutes).padStart(2, '0');
+  const formattedSeconds = String(seconds).padStart(2, '0');
+
+  return `${formattedMinutes}:${formattedSeconds}`;
+};
+
 const Player = ({user, toNext, toPrev}) => {
   const [playing, setPlaying] = useState(false);
   const [position, setPosition] = useState(0);
-  const maxPosition = 1800; // Maximum position value for the slider
+  const [maxPosition, setMaxPosition] = useState(1800);
+  const audioRef = useRef(null);
 
   const play = () => {
-    console.log("play event")
-    // setPause(pause => !pause);
     setPlaying(playing => !playing);
   };
 
@@ -100,22 +116,31 @@ const Player = ({user, toNext, toPrev}) => {
   let timer = null;
   const playBar = () => {
     if (playing) {
-      timer = setTimeout(() => {
-        setPosition(prevPosition => {
-          let newPosition = prevPosition + 1;
-          if (newPosition > maxPosition) {
-            newPosition = 0;
+      audioRef.current.play().then(() => {
+        timer = setInterval(() => {
+          let curr = audioRef.current.currentTime * 1000;
+          if (curr < maxPosition) {
+            setPosition(curr);
+          } else {
+            audioRef.current.pause();
+            clearInterval(timer);
+            setPlaying(false);
           }
-          return newPosition;
-        });
-        playBar();
-      }, 10);
+        }, 10);
+      }).catch((error) => {
+        console.error('Audio playback failed:', error);
+      });
+    } else {
+      audioRef.current.pause();
+      clearInterval(timer);
     }
   };
 
   const sliderChange = (event) => {
-    setPosition(event.target.value);
-    console.log(event.target.value)
+    const newPosition = parseInt(event.target.value);
+    setPosition(newPosition);
+    audioRef.current.currentTime = newPosition / 1000;
+    setPlaying(true);
   };
 
   useEffect(() => {
@@ -123,7 +148,14 @@ const Player = ({user, toNext, toPrev}) => {
     return () => {
       clearTimeout(timer);
     };
+    // eslint-disable-next-line
   }, [playing])
+
+  useEffect(() => {
+    audioRef.current.addEventListener('loadedmetadata', () => {
+      setMaxPosition(audioRef.current.duration * 1000);
+    });
+  }, []);
 
   return (
     <section className="device">
@@ -138,6 +170,8 @@ const Player = ({user, toNext, toPrev}) => {
         <div className="equaliser"></div>
         <Controls previous={previous} play={play} next={next} playing={playing}/>
       </div>
+
+      <audio ref={audioRef} src={user.url} controls className="hidden"/>
     </section>
   );
 };

@@ -115,9 +115,14 @@
     justify-content: center;
 }
 
+.device .time-display {
+    width: calc(100% - 6rem);
+    margin: 0 auto;
+}
+
 .device .progress {
     height: 0.5rem;
-    margin: 2rem 0 2.6rem;
+    margin: 1rem 0 3.6rem;
     position: relative;
 }
 
