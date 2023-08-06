@@ -18,11 +18,11 @@ const Background = () => {
 const PlayerList = () => {
   const navigate = useNavigate();
   const swiperRef = useRef(null);
+  const [swiper, setSwiper] = useState(null);
   // Get route parameters
   const routerParams = useParams();
 
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  let currId = userInfo.findIndex((item) => item.id === routerParams.id);
 
   const toPrev = () => {
     swiperRef.current?.swiper.slidePrev(300);
@@ -44,8 +44,12 @@ const PlayerList = () => {
   };
 
   useEffect(() => {
-    setActiveSlideIndex(currId);
-  }, [currId])
+    let currIndex = userInfo.findIndex((item) => item.id === routerParams.id);
+    setActiveSlideIndex(currIndex);
+    if (swiper) {
+      swiper.slideTo(currIndex, 600)
+    }
+  }, [routerParams.id, swiper]);
 
   return (
     <div className="player-list">
@@ -58,13 +62,13 @@ const PlayerList = () => {
       <Swiper
         ref={swiperRef}
         modules={[A11y]}
-        loop={true}
+        grabCursor={true}
         centeredSlides={true}
         slidesPerView={1}
+        speed={600}
         spaceBetween={40}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSwiper={(swiper) => setSwiper(swiper)}
         onSlideChange={(swiper) => setActiveSlideIndex(swiper.realIndex)}
-        initialSlide={activeSlideIndex}
         className="h-full"
         breakpoints={{
           640: {
