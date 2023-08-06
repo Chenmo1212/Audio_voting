@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import './Player.css'
 
-const AlbumArt = ({imageUrl, isActive}) => {
+const AlbumArt = ({imageUrl}) => {
   return (
     <img
-      className={`album-art ${isActive ? 'active' : ''}`}
+      className={`album-art active`}
       src={imageUrl}
       alt="album art"
     />
@@ -12,26 +12,21 @@ const AlbumArt = ({imageUrl, isActive}) => {
 };
 
 
-const SongInfo = ({songs, artists, currentSong}) => {
+const SongInfo = ({song, artist}) => {
   return (
-    <div className="info">
-      <hgroup className="info__left">
-        <h1 className="info__song">
-          {songs.map((song, index) => (
-            <span key={index} className={`song ${currentSong === index ? 'active' : ''}`}>
+    <div className="info text-center mt-8">
+      <hgroup className="info__left m-auto">
+        <h1 className="info__song text-xl">
+          <div className="song active text-center">
               {song}
-            </span>
-          ))}
+          </div>
         </h1>
-        <h2 className="info__artist">
-          {artists.map((artist, index) => (
-            <span key={index} className={`artist ${currentSong === index ? 'active' : ''}`}>
-              {artist}
-            </span>
-          ))}
-        </h2>
+        {/*<h2 className="info__artist">*/}
+        {/*  <div className="artist active text-center">*/}
+        {/*      {artist}*/}
+        {/*    </div>*/}
+        {/*</h2>*/}
       </hgroup>
-      {/* ... other elements ... */}
     </div>
   );
 };
@@ -79,16 +74,10 @@ const Controls = ({previous, play, next, playing}) => {
   );
 };
 
-const Device = () => {
-  const [currentSong, setCurrentSong] = useState(0);
-  const maxSong = 2; // You can change this based on the number of album-art images you have
+const Player = ({user, toNext, toPrev}) => {
   const [playing, setPlaying] = useState(false);
   const [position, setPosition] = useState(0);
   const maxPosition = 1800; // Maximum position value for the slider
-
-  const songs = ["No Reptiles", "Gosh", "Norrland"];
-  const artists = ["Everything Everything", "Jamie xx", "Gidge"];
-  const images = ["https://res.cloudinary.com/andrewcanham/image/upload/v1579132801/everything-everything.jpg", "https://res.cloudinary.com/andrewcanham/image/upload/v1579132801/jamie-xx.jpg", "https://res.cloudinary.com/andrewcanham/image/upload/v1579132801/gidge.jpg"]
 
   const play = () => {
     // setPause(pause => !pause);
@@ -96,27 +85,13 @@ const Device = () => {
   };
 
   const previous = () => {
-    // updateDOM('remove');
-    let newCurrentSong = currentSong - 1;
-    if (newCurrentSong < 0) {
-      newCurrentSong = maxSong;
-    }
-    setCurrentSong(newCurrentSong);
-    // updateDOM('add');
     setPosition(0);
-    setPlaying(true);
+    toPrev()
   };
 
   const next = () => {
-    // updateDOM('remove');
-    let newCurrentSong = currentSong + 1;
-    if (newCurrentSong > maxSong) {
-      newCurrentSong = 0;
-    }
-    setCurrentSong(newCurrentSong);
-    // updateDOM('add');
     setPosition(0);
-    setPlaying(true);
+    toNext()
   };
 
   let timer = null;
@@ -151,12 +126,10 @@ const Device = () => {
   return (
     <section className="device">
       <div className="device__top">
-        {images.map((url, index) => (
-          <AlbumArt key={index} imageUrl={url} isActive={currentSong === index}/>
-        ))}
+        <AlbumArt imageUrl={user.avatar}/>
       </div>
       <div className="device__mid">
-        <SongInfo songs={songs} artists={artists} currentSong={currentSong}/>
+        <SongInfo song={user.name} artist={user.name}/>
       </div>
       <div className="device__bottom">
         <ProgressBar position={position} maxPosition={maxPosition} sliderChange={sliderChange}/>
@@ -167,4 +140,4 @@ const Device = () => {
   );
 };
 
-export default Device;
+export default Player;

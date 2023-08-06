@@ -15,25 +15,24 @@
     box-shadow: 2rem 2rem 8rem rgba(78, 134, 165, 0.09), 1rem 1rem 4rem rgba(78, 134, 165, 0.09), inset 4rem 4rem 10rem rgba(78, 134, 165, 0.05);
     display: flex;
     flex-direction: column;
-    height: 90%;
+    height: 36rem;
     left: 50%;
     overflow: hidden;
     position: absolute;
     top: 50%;
     transform: translate3D(-50%, -50%, 0);
-    width: 26.8rem;
+    width: 20rem;
 }
 
 .device__top {
     background: rgba(255, 255, 255, 0.6);
-    height: 25rem;
+    height: 40%;
     overflow: hidden;
     position: relative;
 }
 
 .album-art {
     height: 100%;
-    -o-object-fit: cover;
     object-fit: cover;
     width: 100%;
     position: absolute;
@@ -45,7 +44,7 @@
 }
 
 .device__mid {
-    flex: 1;
+    height: 20%;
 }
 
 .device .info {
@@ -55,7 +54,6 @@
 }
 
 .info__right {
-    flex: 1;
     text-align: right;
 }
 
@@ -69,8 +67,6 @@
 }
 
 .device .song {
-    display: block;
-    position: absolute;
     transform: translateY(150%);
 }
 
@@ -90,10 +86,6 @@
 }
 
 .device .artist {
-    display: block;
-    left: 0;
-    top: 0;
-    position: absolute;
     transform: translateY(150%);
 }
 
@@ -149,11 +141,11 @@
     background: rgba(255, 255, 255, 0.5);
     border-radius: 10rem;
     box-shadow: 1rem 1rem 4rem rgba(78, 134, 165, 0.09), 0.5rem 0.5rem 2rem rgba(78, 134, 165, 0.09), -0.5rem -1.5rem 2rem white, inset 1rem 1rem 2.3rem rgba(78, 134, 165, 0.05), 0px 0px 0.1rem #FFFFFF, inset 0.1rem 0.1rem 0 #FFFFFF;
-    height: 5rem;
+    height: 4rem;
     margin: 0 1rem 3rem;
     position: relative;
     transition: box-shadow 0.05s ease-in;
-    width: 5rem;
+    width: 4rem;
 }
 
 .controls__round-button svg {
@@ -180,9 +172,9 @@
 }
 
 .controls__round-button--large {
-    height: 7.5rem;
+    height: 5.5rem;
     text-align: center;
-    width: 7.5rem;
+    width: 5.5rem;
 }
 
 .controls__round-button--large svg {

@@ -52,7 +52,7 @@ const Homepage = () => {
         <Slogan/>
         <Qrcode/>
 
-        <div className="enter absolute bottom-[26%] right-[30%] text-2xl text-center">
+        <div className="enter absolute bottom-[26%] right-[30%] text-3xl text-center">
           <span className="container bg-white inline-block text-center">
             <input type="button" value="点击进入" onClick={enterEvent} className="cursor-pointer"/>
           </span>
