@@ -76,7 +76,8 @@ const PlayerList = () => {
           userInfo.map((item, index) => (
               <SwiperSlide key={index}>
                 <div onClick={() => handleSlideClick(index)}>
-                  <Player user={userInfo[index]} toNext={toNext} toPrev={toPrev}/>
+                  <Player user={userInfo[index]} toNext={toNext} toPrev={toPrev}
+                          isActive={activeSlideIndex === index}/>
                 </div>
               </SwiperSlide>
             )
