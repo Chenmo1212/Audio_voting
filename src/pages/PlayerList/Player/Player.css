@@ -115,10 +115,28 @@
     justify-content: center;
 }
 
+.device .time-display {
+    width: calc(100% - 6rem);
+    margin: 0 auto;
+}
+
 .device .progress {
     height: 0.5rem;
-    margin: 2rem 0 2.6rem;
+    margin: 1rem 0 3.6rem;
     position: relative;
+}
+.played-progress-container {
+    height: 100%;
+    width: calc(100% - 6rem);
+    margin-left: 3rem;
+    bottom: -1.5rem;
+}
+
+.played-progress {
+    height: 100%;
+    border-radius: 1rem;
+    background: #49C6FF;
+    filter: drop-shadow(0 0 0.1rem rgba(124, 214, 255, 0.5));
 }
 
 #play-button .pause {
@@ -164,11 +182,6 @@
 
 .controls__round-button:active {
     box-shadow: 1rem 1rem 4rem rgba(78, 134, 165, 0), 0 0.1rem 0.1rem rgba(78, 134, 165, 0.25), -0.5rem -1.5rem 2rem rgba(255, 255, 255, 0), inset 1rem 1rem 2.3rem rgba(78, 134, 165, 0.05), 0 0.1rem 0.1rem white, inset 0.1rem -0.1rem 0 rgba(255, 255, 255, 0);
-}
-
-.controls__round-button:active * {
-    fill: #49C6FF;
-    filter: drop-shadow(0 0 0.1rem rgba(124, 214, 255, 0.5));
 }
 
 .controls__round-button--large {
@@ -236,6 +249,7 @@
     background: rgba(78, 134, 165, 0.03);
     border-radius: 1rem;
     bottom: 0;
+    z-index: 10;
     box-shadow: 0.3rem 0.3rem 1rem #FFFFFF, -0.3rem -0.2rem 0.8rem rgba(78, 134, 165, 0.03), inset 1rem 1rem 2.3rem rgba(78, 134, 165, 0.05), inset 0.1rem 0.1rem 0 rgba(78, 134, 165, 0.05);
 }
 
@@ -254,10 +268,6 @@
 
 .device input[type=range]::-webkit-slider-thumb:hover {
     background: #fff;
-}
-
-.device input[type=range]:focus::-webkit-slider-runnable-track {
-    background: rgba(73, 198, 255, 0.5);
 }
 
 .device input[type=range]::-moz-range-track {

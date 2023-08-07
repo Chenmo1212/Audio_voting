@@ -12,7 +12,6 @@ const Background = () => {
 }
 
 const UserList = (props) => {
-  console.log(props)
   return (
     <div className="userList">
       {userInfo.map((item, index) => (

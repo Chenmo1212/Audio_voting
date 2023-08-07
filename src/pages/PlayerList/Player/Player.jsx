@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './Player.css'
 
 const AlbumArt = ({imageUrl}) => {
@@ -18,7 +18,7 @@ const SongInfo = ({song, artist}) => {
       <hgroup className="info__left m-auto">
         <h1 className="info__song text-xl">
           <div className="song active text-center">
-              {song}
+            {song}
           </div>
         </h1>
         {/*<h2 className="info__artist">*/}
@@ -31,14 +31,27 @@ const SongInfo = ({song, artist}) => {
   );
 };
 const ProgressBar = ({position, maxPosition, sliderChange}) => {
+  const progress = (position / maxPosition) * 100;
   return (
-    <div className="progress">
-      <input id="slider" type="range" value={position} min="0" max={maxPosition} step="1" onChange={sliderChange}/>
-    </div>
+    <>
+      <div className="progress">
+        <div className="time-display flex justify-between">
+          <span className="start text-xs">{formatTime(position)}</span>
+          <span className="start text-xs">{formatTime(maxPosition)}</span>
+        </div>
+        <div className="played-progress-container relative">
+          <div
+            className="played-progress absolute"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+        <input id="slider" type="range" value={position} min="0" max={maxPosition} step="1" onChange={sliderChange}/>
+      </div>
+    </>
   );
 };
 
-const Controls = ({previous, play, next, playing}) => {
+const Controls = ({previous, play, pause, next, playing}) => {
   return (
     <div className="controls">
       <button className="controls__round-button" id="previous-button" onClick={previous}>
@@ -47,7 +60,8 @@ const Controls = ({previous, play, next, playing}) => {
         </svg>
         <span className="sr-only">Previous</span>
       </button>
-      <button className="controls__round-button controls__round-button--large" id="play-button" onClick={play}>
+      <button className="controls__round-button controls__round-button--large" id="play-button"
+              onClick={ () => playing ? pause() : play() }>
         <div className="play" style={{display: playing ? "none" : "block"}}>
           <svg className="controls__play" width="14" height="18" viewBox="0 0 14 18" fill="none"
                xmlns="http://www.w3.org/2000/svg">
@@ -74,46 +88,75 @@ const Controls = ({previous, play, next, playing}) => {
   );
 };
 
-const Player = ({user, toNext, toPrev}) => {
+const formatTime = (timeInMillis) => {
+  const totalSeconds = Math.floor(timeInMillis / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  const formattedMinutes = String(minutes).padStart(2, '0');
+  const formattedSeconds = String(seconds).padStart(2, '0');
+
+  return `${formattedMinutes}:${formattedSeconds}`;
+};
+
+const Player = ({user, toNext, toPrev, isActive}) => {
   const [playing, setPlaying] = useState(false);
   const [position, setPosition] = useState(0);
-  const maxPosition = 1800; // Maximum position value for the slider
+  const [maxPosition, setMaxPosition] = useState(1800);
+  const audioRef = useRef(null);
 
   const play = () => {
-    // setPause(pause => !pause);
-    setPlaying(playing => !playing);
+    setPlaying(true);
+    audioRef.current.play();
+  };
+  const pause = () => {
+    setPlaying(false);
+    audioRef.current.pause();
+    clearInterval(timer);
   };
 
   const previous = () => {
     setPosition(0);
+    setPlaying(false);
     toPrev()
   };
 
   const next = () => {
     setPosition(0);
+    setPlaying(false);
     toNext()
   };
+
+  const stop = () => {
+    setPosition(0);
+    pause()
+  }
 
   let timer = null;
   const playBar = () => {
     if (playing) {
-      timer = setTimeout(() => {
-        setPosition(prevPosition => {
-          let newPosition = prevPosition + 1;
-          if (newPosition > maxPosition) {
-            newPosition = 0;
-            next();
+      audioRef.current.play().then(() => {
+        timer = setInterval(() => {
+          let curr = audioRef.current.currentTime * 1000;
+          if (curr < maxPosition) {
+            setPosition(curr);
+          } else {
+            pause();
           }
-          return newPosition;
-        });
-        playBar();
-      }, 10);
+        }, 10);
+      }).catch((error) => {
+        console.error('Audio playback failed:', error);
+      });
+    } else {
+      pause()
     }
   };
 
   const sliderChange = (event) => {
-    setPosition(event.target.value);
-    console.log(event.target.value)
+    const newPosition = parseInt(event.target.value);
+    setPosition(newPosition);
+    audioRef.current.currentTime = newPosition / 1000;
+    play()
   };
 
   useEffect(() => {
@@ -121,7 +164,21 @@ const Player = ({user, toNext, toPrev}) => {
     return () => {
       clearTimeout(timer);
     };
+    // eslint-disable-next-line
   }, [playing])
+
+  useEffect(() => {
+    audioRef.current.addEventListener('loadedmetadata', () => {
+      setMaxPosition(audioRef.current.duration * 1000);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!isActive) {
+      stop()
+    }
+    // eslint-disable-next-line
+  }, [isActive]);
 
   return (
     <section className="device">
@@ -134,8 +191,10 @@ const Player = ({user, toNext, toPrev}) => {
       <div className="device__bottom">
         <ProgressBar position={position} maxPosition={maxPosition} sliderChange={sliderChange}/>
         <div className="equaliser"></div>
-        <Controls previous={previous} play={play} next={next} playing={playing}/>
+        <Controls previous={previous} play={play} pause={pause} next={next} playing={playing}/>
       </div>
+
+      <audio ref={audioRef} src={user.url} controls className="hidden"/>
     </section>
   );
 };
