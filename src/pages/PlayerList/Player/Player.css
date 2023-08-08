@@ -50,7 +50,7 @@
 .device .info {
     display: flex;
     font-size: 0.9rem;
-    padding: 2rem 3rem;
+    padding: 1rem 3rem;
 }
 
 .info__right {
@@ -60,7 +60,6 @@
 .info__song {
     font-weight: 700;
     height: 1.6rem;
-    margin: 0;
     overflow: hidden;
     padding: 0 0 0.4rem;
     position: relative;

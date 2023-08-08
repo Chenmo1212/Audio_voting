@@ -12,25 +12,25 @@ const AlbumArt = ({imageUrl}) => {
 };
 
 
-const SongInfo = ({song, artist}) => {
+const SongInfo = ({song, artist, isAudioLoading}) => {
   return (
-    <div className="info text-center mt-8">
-      <hgroup className="info__left m-auto">
-        <h1 className="info__song text-xl">
+    <div className="info text-center mt-4">
+      <div className="info__left m-auto">
+        <h1 className="info__song text-xl mb-4">
           <div className="song active text-center">
             {song}
           </div>
         </h1>
-        {/*<h2 className="info__artist">*/}
-        {/*  <div className="artist active text-center">*/}
-        {/*      {artist}*/}
-        {/*    </div>*/}
-        {/*</h2>*/}
-      </hgroup>
+        <h2 className="info__artist">
+          <div className="artist active text-center">
+              {isAudioLoading ? "正在加载..." : artist}
+            </div>
+        </h2>
+      </div>
     </div>
   );
 };
-const ProgressBar = ({position, maxPosition, sliderChange}) => {
+const ProgressBar = ({position, maxPosition, isAudioLoading, sliderChange}) => {
   const progress = (position / maxPosition) * 100;
   return (
     <>
@@ -45,23 +45,23 @@ const ProgressBar = ({position, maxPosition, sliderChange}) => {
             style={{ width: `${progress}%` }}
           ></div>
         </div>
-        <input id="slider" type="range" value={position} min="0" max={maxPosition} step="1" onChange={sliderChange}/>
+        <input id="slider" type="range" value={position} min="0" max={maxPosition} step="1" onChange={sliderChange} disabled={isAudioLoading}/>
       </div>
     </>
   );
 };
 
-const Controls = ({previous, play, pause, next, playing}) => {
+const Controls = ({previous, play, pause, next, playing, isAudioLoading}) => {
   return (
     <div className="controls">
-      <button className="controls__round-button" id="previous-button" onClick={previous}>
+      <button className="controls__round-button" id="previous-button" onClick={previous} disabled={isAudioLoading}>
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M3.13672 5L9.5 0.5V9.5L3.13672 5ZM0.5 0.5H2.01172V9.5H0.5V0.5Z"/>
         </svg>
         <span className="sr-only">Previous</span>
       </button>
       <button className="controls__round-button controls__round-button--large" id="play-button"
-              onClick={ () => playing ? pause() : play() }>
+              onClick={ () => playing ? pause() : play() } disabled={isAudioLoading}>
         <div className="play" style={{display: playing ? "none" : "block"}}>
           <svg className="controls__play" width="14" height="18" viewBox="0 0 14 18" fill="none"
                xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +77,7 @@ const Controls = ({previous, play, pause, next, playing}) => {
           <span className="sr-only">Pause</span>
         </div>
       </button>
-      <button className="controls__round-button" id="next-button" onClick={next}>
+      <button className="controls__round-button" id="next-button" onClick={next} disabled={isAudioLoading}>
         <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 10 10" fill="none"
              xmlns="http://www.w3.org/2000/svg">
           <path d="M7.98828 0.5H9.5V9.5H7.98828V0.5ZM0.5 9.5V0.5L6.86328 5L0.5 9.5Z"/>
@@ -101,6 +101,7 @@ const formatTime = (timeInMillis) => {
 
 const Player = ({user, toNext, toPrev, isActive}) => {
   const [playing, setPlaying] = useState(false);
+  const [isAudioLoading, setIsAudioLoading] = useState(false);
   const [position, setPosition] = useState(0);
   const [maxPosition, setMaxPosition] = useState(1800);
   const audioRef = useRef(null);
@@ -135,7 +136,9 @@ const Player = ({user, toNext, toPrev, isActive}) => {
   let timer = null;
   const playBar = () => {
     if (playing) {
+      setIsAudioLoading(true);
       audioRef.current.play().then(() => {
+        setIsAudioLoading(false);
         timer = setInterval(() => {
           let curr = audioRef.current.currentTime * 1000;
           if (curr < maxPosition) {
@@ -145,7 +148,9 @@ const Player = ({user, toNext, toPrev, isActive}) => {
           }
         }, 10);
       }).catch((error) => {
-        console.error('Audio playback failed:', error);
+        setIsAudioLoading(false);
+        alert("音频加载失败，请刷新后重试!");
+        console.log("Audio playback failed:", error, audioRef.current.src)
       });
     } else {
       pause()
@@ -168,7 +173,7 @@ const Player = ({user, toNext, toPrev, isActive}) => {
   }, [playing])
 
   useEffect(() => {
-    audioRef.current.addEventListener('loadedmetadata', () => {
+    audioRef.current && audioRef.current.addEventListener('loadedmetadata', () => {
       setMaxPosition(audioRef.current.duration * 1000);
     });
   }, []);
@@ -186,12 +191,12 @@ const Player = ({user, toNext, toPrev, isActive}) => {
         <AlbumArt imageUrl={user.avatar}/>
       </div>
       <div className="device__mid">
-        <SongInfo song={user.name} artist={user.name}/>
+        <SongInfo song={user.desc} artist={user.name} isAudioLoading={isAudioLoading} />
       </div>
       <div className="device__bottom">
-        <ProgressBar position={position} maxPosition={maxPosition} sliderChange={sliderChange}/>
+        <ProgressBar position={position} maxPosition={maxPosition} isAudioLoading={isAudioLoading} sliderChange={sliderChange}/>
         <div className="equaliser"></div>
-        <Controls previous={previous} play={play} pause={pause} next={next} playing={playing}/>
+        <Controls previous={previous} play={play} pause={pause} next={next} playing={playing} isAudioLoading={isAudioLoading} />
       </div>
 
       <audio ref={audioRef} src={user.url} controls className="hidden"/>
