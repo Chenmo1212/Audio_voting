@@ -179,7 +179,7 @@ const Player = ({user, toNext, toPrev, isActive}) => {
         setMaxPosition(duration);
       });
     }
-  }, [audioRef.current]);
+  }, []);
 
   useEffect(() => {
     if (!isActive) {
