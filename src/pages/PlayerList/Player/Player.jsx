@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './Player.css'
+import {Spin} from 'antd';
 
 const AlbumArt = ({imageUrl}) => {
   return (
@@ -23,8 +24,8 @@ const SongInfo = ({song, artist, isAudioLoading}) => {
         </h1>
         <h2 className="info__artist">
           <div className="artist active text-center">
-              {isAudioLoading ? "正在加载..." : artist}
-            </div>
+            {isAudioLoading ? "正在加载..." : artist}
+          </div>
         </h2>
       </div>
     </div>
@@ -42,10 +43,11 @@ const ProgressBar = ({position, maxPosition, isAudioLoading, sliderChange}) => {
         <div className="played-progress-container relative">
           <div
             className="played-progress absolute"
-            style={{ width: `${progress}%` }}
+            style={{width: `${progress}%`}}
           ></div>
         </div>
-        <input id="slider" type="range" value={position} min="0" max={maxPosition} step="1" onChange={sliderChange} disabled={isAudioLoading}/>
+        <input id="slider" type="range" value={position} min="0" max={maxPosition} step="1" onChange={sliderChange}
+               disabled={isAudioLoading}/>
       </div>
     </>
   );
@@ -61,7 +63,7 @@ const Controls = ({previous, play, pause, next, playing, isAudioLoading}) => {
         <span className="sr-only">Previous</span>
       </button>
       <button className="controls__round-button controls__round-button--large" id="play-button"
-              onClick={ () => playing ? pause() : play() } disabled={isAudioLoading}>
+              onClick={() => playing ? pause() : play()} disabled={isAudioLoading}>
         <div className="play" style={{display: playing ? "none" : "block"}}>
           <svg className="controls__play" width="14" height="18" viewBox="0 0 14 18" fill="none"
                xmlns="http://www.w3.org/2000/svg">
@@ -194,13 +196,28 @@ const Player = ({user, toNext, toPrev, isActive}) => {
         <AlbumArt imageUrl={user.avatar}/>
       </div>
       <div className="device__mid">
-        <SongInfo song={user.desc} artist={user.name} isAudioLoading={isAudioLoading} />
+        <SongInfo song={user.desc} artist={user.name} isAudioLoading={isAudioLoading}/>
       </div>
       <div className="device__bottom">
-        <ProgressBar position={position} maxPosition={maxPosition} isAudioLoading={isAudioLoading} sliderChange={sliderChange}/>
+        <ProgressBar position={position} maxPosition={maxPosition} isAudioLoading={isAudioLoading}
+                     sliderChange={sliderChange}/>
         <div className="equaliser"></div>
-        <Controls previous={previous} play={play} pause={pause} next={next} playing={playing} isAudioLoading={isAudioLoading} />
+        <Controls previous={previous} play={play} pause={pause} next={next} playing={playing}
+                  isAudioLoading={isAudioLoading}/>
       </div>
+
+      {
+        isAudioLoading && (
+          <div className="loading-container absolute h-full w-full z-20">
+            <div className="bg h-full"></div>
+            <div className="loading absolute w-24 h-24">
+              <Spin tip="Loading">
+                <div className="content" />
+              </Spin>
+            </div>
+          </div>
+        )
+      }
 
       <audio ref={audioRef} src={isActive ? user.url : null} controls className="hidden"/>
     </section>
