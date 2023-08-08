@@ -334,3 +334,10 @@
     height: 6rem!important;
     border-radius: 10px;
 }
+
+@media only screen and (max-width: 500px) {
+    .device {
+        width: 70vw;
+        height: 60vh;
+    }
+}

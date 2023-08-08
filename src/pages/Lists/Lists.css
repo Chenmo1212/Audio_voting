@@ -101,6 +101,12 @@
 }
 
 @media only screen and (max-width: 500px) {
+    .content {
+        width: 80%;
+        left: 10%;
+        height: 80%;
+        top: 10%;
+    }
     .left {
         width: 40%;
     }

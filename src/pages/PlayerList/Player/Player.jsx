@@ -151,7 +151,6 @@ const Player = ({user, toNext, toPrev, isActive}) => {
         }, 10);
       }).catch((error) => {
         setIsAudioLoading(false);
-        alert("音频加载失败，请刷新后重试!");
         console.log("Audio playback failed:", error, audioRef.current.src)
       });
     } else {
