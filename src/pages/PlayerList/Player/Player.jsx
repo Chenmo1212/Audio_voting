@@ -108,11 +108,11 @@ const Player = ({user, toNext, toPrev, isActive}) => {
 
   const play = () => {
     setPlaying(true);
-    audioRef.current.play();
+    audioRef.current?.play();
   };
   const pause = () => {
     setPlaying(false);
-    audioRef.current.pause();
+    audioRef.current?.pause();
     clearInterval(timer);
   };
 
@@ -173,10 +173,13 @@ const Player = ({user, toNext, toPrev, isActive}) => {
   }, [playing])
 
   useEffect(() => {
-    audioRef.current && audioRef.current.addEventListener('loadedmetadata', () => {
-      setMaxPosition(audioRef.current.duration * 1000);
-    });
-  }, []);
+    if (audioRef.current) {
+      audioRef.current.addEventListener('loadedmetadata', () => {
+        let duration = audioRef.current ? audioRef.current.duration * 1000 : 0
+        setMaxPosition(duration);
+      });
+    }
+  }, [audioRef.current]);
 
   useEffect(() => {
     if (!isActive) {
@@ -199,7 +202,7 @@ const Player = ({user, toNext, toPrev, isActive}) => {
         <Controls previous={previous} play={play} pause={pause} next={next} playing={playing} isAudioLoading={isAudioLoading} />
       </div>
 
-      <audio ref={audioRef} src={user.url} controls className="hidden"/>
+      <audio ref={audioRef} src={isActive ? user.url : null} controls className="hidden"/>
     </section>
   );
 };
