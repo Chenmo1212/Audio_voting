@@ -63,7 +63,7 @@ const Right = (props) => {
         <div className="underline h-[5px] w-[6rem] mt-4 ml-0 mb-[4rem]"></div>
 
         <div className="desc mb-12">
-          {currentUser.desc}
+          朗诵曲目：《{currentUser.desc}》
         </div>
 
         <div className="enter text-xl">

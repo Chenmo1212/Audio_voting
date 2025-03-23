@@ -1,129 +1,101 @@
 const userInfo = [
   {
-    "name": "王清竹001",
+    "name": "刘芮汐",
     "id": "001",
-    "desc": "一个聪明可爱的小朋友\n拥有着灿烂的笑容和友善的个性\n喜欢阅读 探索自然 善于与人沟通",
-    "url": "https://cdn.chenmo1212.cn/files/audio2.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/1.png"
+    "desc": "秋天",
+    "url": "https://cdn.chenmo1212.cn/files/audio/刘芮汐.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/刘芮汐.jpg"
   },
   {
-    "name": "张晓002",
+    "name": "叶芸睿",
     "id": "002",
-    "desc": "喜欢音乐和绘画\n热爱大自然\n热心助人",
-    "url": "https://cdn.chenmo1212.cn/files/audio1.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/2.png"
+    "desc": "沁园春·雪",
+    "url": "https://cdn.chenmo1212.cn/files/audio/叶芸睿.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/叶芸睿.jpg"
   },
   {
-    "name": "李明003",
+    "name": "张子瀚",
     "id": "003",
-    "desc": "爱读书 爱旅行\n喜欢尝试新鲜事物\n积极向上",
-    "url": "https://cdn.chenmo1212.cn/files/audio3.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/3.png"
+    "desc": "沁园春·雪",
+    "url": "https://cdn.chenmo1212.cn/files/audio/张子瀚.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/张子瀚.jpg"
   },
   {
-    "name": "陈静004",
+    "name": "杨君瑞",
     "id": "004",
-    "desc": "热爱运动\n喜欢健身和跑步\n乐观开朗",
-    "url": "https://cdn.chenmo1212.cn/files/audio4.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/4.png"
+    "desc": "其实我知道",
+    "url": "https://cdn.chenmo1212.cn/files/audio/杨君瑞.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/杨君瑞.jpg"
   },
   {
-    "name": "刘涛005",
+    "name": "殷紫涵",
     "id": "005",
-    "desc": "喜欢烹饪美食\n爱看电影\n善于交际",
-    "url": "https://cdn.chenmo1212.cn/files/audio2.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/5.png"
+    "desc": "满江红",
+    "url": "https://cdn.chenmo1212.cn/files/audio/殷紫涵.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/殷紫涵.jpg"
   },
   {
-    "name": "赵丽006",
+    "name": "秦王",
     "id": "006",
-    "desc": "热爱动物\n擅长绘画\n热心公益",
-    "url": "https://cdn.chenmo1212.cn/files/audio1.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/6.png"
+    "desc": "好饿的毛毛虫",
+    "url": "https://cdn.chenmo1212.cn/files/audio/秦王.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/秦王.jpg"
   },
   {
-    "name": "杨洋007",
+    "name": "聂杨恩",
     "id": "007",
-    "desc": "喜欢写作\n爱好摄影\n乐于分享",
-    "url": "https://cdn.chenmo1212.cn/files/audio3.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/7.png"
+    "desc": "风味漫威",
+    "url": "https://cdn.chenmo1212.cn/files/audio/聂杨恩.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/聂杨恩.jpg"
   },
   {
-    "name": "张雅008",
+    "name": "聂杨晴",
     "id": "008",
-    "desc": "热爱自然\n喜欢户外活动\n性格开朗",
-    "url": "https://cdn.chenmo1212.cn/files/audio4.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/8.png"
+    "desc": "再别康桥",
+    "url": "https://cdn.chenmo1212.cn/files/audio/聂杨晴.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/聂杨晴.jpg"
   },
   {
-    "name": "王强009",
+    "name": "萧若妍",
     "id": "009",
-    "desc": "喜欢音乐\n爱看电影\n待人友善",
-    "url": "https://cdn.chenmo1212.cn/files/audio2.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/9.png"
+    "desc": "影视配音",
+    "url": "https://cdn.chenmo1212.cn/files/audio/萧若妍.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/萧若妍.jpg"
   },
   {
-    "name": "刘雨010",
+    "name": "贺文若",
     "id": "010",
-    "desc": "热爱科学\n喜欢解决难题\n乐观向上",
-    "url": "https://cdn.chenmo1212.cn/files/audio1.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/8.png"
+    "desc": "轻轻",
+    "url": "https://cdn.chenmo1212.cn/files/audio/贺文若.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/贺文若.jpg"
   },
   {
-    "name": "陈鹏011",
+    "name": "陆俞蒙",
     "id": "011",
-    "desc": "喜欢旅行\n爱好摄影\n热心助人",
-    "url": "https://cdn.chenmo1212.cn/files/audio3.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/1.png"
+    "desc": "荷叶圆圆",
+    "url": "https://cdn.chenmo1212.cn/files/audio/陆俞蒙.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/陆俞蒙.jpg"
   },
   {
-    "name": "张静012",
+    "name": "陈泳妍",
     "id": "012",
-    "desc": "喜欢阅读\n爱写作\n善于交际",
-    "url": "https://cdn.chenmo1212.cn/files/audio4.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/2.png"
+    "desc": "樱桃小丸子",
+    "url": "https://cdn.chenmo1212.cn/files/audio/陈泳妍.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/陈泳妍.jpg"
   },
   {
-    "name": "李超013",
+    "name": "刘轩辰",
     "id": "013",
-    "desc": "热爱体育\n擅长篮球\n性格开朗",
-    "url": "https://cdn.chenmo1212.cn/files/audio2.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/3.png"
+    "desc": "奶奶的熊二",
+    "url": "https://cdn.chenmo1212.cn/files/audio/刘轩辰.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/刘轩辰.jpg"
   },
   {
-    "name": "王雪014",
+    "name": "夏自恒",
     "id": "014",
-    "desc": "喜欢音乐\n爱好美食\n热心公益",
-    "url": "https://cdn.chenmo1212.cn/files/audio1.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/4.png"
-  },
-  {
-    "name": "刘林015",
-    "id": "015",
-    "desc": "热爱自然\n喜欢植物\n乐于分享",
-    "url": "https://cdn.chenmo1212.cn/files/audio3.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/5.png"
-  },
-  {
-    "name": "赵琳016",
-    "id": "016",
-    "desc": "喜欢写作\n爱看电影\n性格开朗",
-    "url": "https://cdn.chenmo1212.cn/files/audio4.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/6.png"
-  },
-  {
-    "name": "杨波017",
-    "id": "017",
-    "desc": "热爱动物\n擅长绘画\n热心公益",
-    "url": "https://cdn.chenmo1212.cn/files/audio1.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/7.png"
-  },
-  {
-    "name": "张青018",
-    "id": "018",
-    "desc": "喜欢写作\n爱好摄影\n乐于分享",
-    "url": "https://cdn.chenmo1212.cn/files/audio2.mp3",
-    "avatar": "https://cdn.chenmo1212.cn/img/8.png"
+    "desc": "没办法就是长得帅",
+    "url": "https://cdn.chenmo1212.cn/files/audio/夏自恒.mp3",
+    "avatar": "https://cdn.chenmo1212.cn/files/audio/夏自恒.jpg"
   }
 ];
 

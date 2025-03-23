@@ -50,7 +50,7 @@
 .device .info {
     display: flex;
     font-size: 0.9rem;
-    padding: 2rem 3rem;
+    padding: 1rem 3rem;
 }
 
 .info__right {
@@ -60,7 +60,6 @@
 .info__song {
     font-weight: 700;
     height: 1.6rem;
-    margin: 0;
     overflow: hidden;
     padding: 0 0 0.4rem;
     position: relative;
@@ -125,6 +124,7 @@
     margin: 1rem 0 3.6rem;
     position: relative;
 }
+
 .played-progress-container {
     height: 100%;
     width: calc(100% - 6rem);
@@ -318,4 +318,19 @@
     height: 1.4rem;
     padding: 0;
     width: 1.4rem;
+}
+
+.loading-container .bg {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.loading-container .loading {
+    left: calc(50% - 3rem);
+    top: calc(50% - 3rem);
+}
+
+.loading-container .ant-spin {
+    background: #fff;
+    height: 6rem!important;
+    border-radius: 10px;
 }
